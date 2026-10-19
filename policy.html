@@ -1,0 +1,9 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Policies - THYNG</title><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon.png"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&family=Quattrocento:wght@400;700&family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head><body>
+<section class="pol"><div class="pin"><h1 id="pt"></h1><div id="pb"></div></div></section>
+<script src="js/main.js"></script><script src="js/footer.js"></script><script>
+const P={shipping:["Shipping policy","<p>We process &amp; ship all orders within 3-5 business days. Delivery times vary by location. Custom orders take a bit longer (3-4 extra days). You'll get tracking info as soon as your order's on the move.</p><p>Double-check your address, no one wants lost drip.</p><p>Questions? Hit us at <b><i>thyngofficial@gmail.com</i></b></p><p><i>Appreciate you rollin' with us , your style pack's 'bout to land loud!</i></p>"],
+privacy:["Privacy policy","<p>Paste your privacy policy text here (edit policy.html).</p>"],
+customization:["Customization policy","<p>Paste your customization policy text here (edit policy.html).</p>"]};
+const k=new URLSearchParams(location.search).get("p"),p=P[k]||P.shipping;document.title=p[0]+" - THYNG";pt.textContent=p[0];pb.innerHTML=p[1];
+document.querySelectorAll("footer nav a").forEach(a=>{if(a.href.includes("p="+(P[k]?k:"shipping")))a.classList.add("on")});
+</script></body></html>

@@ -1,0 +1,33 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Products - THYNG</title><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon.png"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&family=Quattrocento:wght@400;700&family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head><body>
+
+<div class="pagehead"><h1 id="ttl">Products</h1></div>
+<div class="ss" data-ss="bar"><div class="ss-track">
+<div class="ss-slide sslide"><a href="product.html?id=suture"><img src="assets/slide-suture.jpg" alt="SUTURE 0.1"></a><div class="txt"><h2>SUTURE 0.1</h2><span>Limited Edition</span><a class="btn" href="product.html?id=suture">Shop Now</a></div></div>
+<div class="ss-slide sslide"><a href="product.html?id=arachnid"><img src="assets/products/arachnid.jpg" alt="ARACHNID cap"></a><div class="txt"><h2>ARACHNID - Most Trending</h2><a class="btn" href="product.html?id=arachnid">SHOP</a></div></div>
+</div></div>
+<div class="tools"><button class="fs" id="fsBtn" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h10M17 7h4M3 17h4M11 17h10"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>Filter and sort</button><span id="cnt"></span></div>
+<div class="fspanel" id="fsp"><label>Availability <select id="av"><option value="">All</option><option value="in">In stock</option><option value="out">Out of stock</option></select></label>
+<label>Price <select id="pr"><option value="">All</option><option value="0-1200">Under 1,200</option><option value="1200-2000">1,200 - 2,000</option><option value="2000-9999">2,000+</option></select></label>
+<label>Sort by <select id="so"><option value="">Featured</option><option value="az">Alphabetically, A-Z</option><option value="lo">Price, low to high</option><option value="hi">Price, high to low</option></select></label></div>
+<section class="grid" id="g"></section><div class="pager" id="pg"></div>
+<script src="js/main.js"></script>
+<script>
+PRODUCTS_READY.then(()=>{
+ const qs=new URLSearchParams(location.search),c=qs.get("c"),q=(qs.get("q")||"").toLowerCase(),per=20;let page=1;
+ let base=PRODUCTS.slice();const col=qs.get("collection");
+ if(col){const tg=base.filter(p=>(p.collections||[]).includes(col));if(tg.length)base=tg;ttl.textContent=qs.get("title")||"Products"}
+ if(c==="bundles"){base=BUNDLES;ttl.textContent="Bundles save upto 40%"}
+ if(c==="sale")base=base.filter(p=>p.compare);if(c==="tees")base=base.filter(p=>p.type==="tee");if(c==="caps")base=base.filter(p=>p.type==="cap");if(c==="shades")base=base.filter(p=>p.type==="shades");if({tees:1,caps:1,shades:1}[c])ttl.textContent=c[0].toUpperCase()+c.slice(1);
+ if(q)base=base.filter(p=>p.name.toLowerCase().includes(q)||p.type.includes(q));
+ function draw(){let l=base.slice();
+  if(av.value)l=l.filter(p=>av.value==="out"?p.soldOut:!p.soldOut);
+  if(pr.value){const[a,b]=pr.value.split("-").map(Number);l=l.filter(p=>p.price>=a&&p.price<b)}
+  if(so.value==="az")l.sort((a,b)=>a.name.localeCompare(b.name));if(so.value==="lo")l.sort((a,b)=>a.price-b.price);if(so.value==="hi")l.sort((a,b)=>b.price-a.price);
+  cnt.textContent=l.length+" product"+(l.length==1?"":"s");
+  g.innerHTML=l.slice((page-1)*per,page*per).map(cardHTML).join("")||"<p style='padding:40px'>No products found.</p>";
+  const n=Math.ceil(l.length/per);pg.innerHTML=n>1?Array.from({length:n},(_,i)=>`<a href="#" class="${i+1===page?"on":""}" data-p="${i+1}">${i+1}</a>`).join(""):"";}
+ [av,pr,so].forEach(e=>e.onchange=()=>{page=1;draw()});
+ pg.onclick=e=>{if(e.target.dataset.p){e.preventDefault();page=+e.target.dataset.p;draw();scrollTo(0,0)}};
+ fsBtn.onclick=()=>fsp.classList.toggle("open");draw();
+});</script>
+<script src="js/footer.js"></script></body></html>

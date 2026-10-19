@@ -1,0 +1,15 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Collections - THYNG</title><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon.png"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&family=Quattrocento:wght@400;700&family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head><body>
+<section class="colls"><div class="ch"><h1>Collections</h1><a class="va" href="shop.html">View all</a></div>
+<div class="cgrid" id="cg"></div>
+<div class="cctl"><button id="cp" aria-label="Previous">‹</button><span id="cn"></span><button id="cx" aria-label="Next">›</button></div>
+<div class="vall"><a class="btn" href="shop.html">View all</a></div></section>
+<script src="js/main.js"></script>
+<script>
+fetch("data/collections.txt?"+Date.now()).then(r=>r.text()).then(t=>{
+ const L=t.split(/\r?\n/).map(l=>l.trim()).filter(l=>l&&!l.startsWith("#")).map(l=>l.split("|").map(x=>x.trim()));
+ cg.innerHTML=L.map(([s,n,i])=>`<a class="cc" href="shop.html?collection=${s}&title=${encodeURIComponent(n)}"><img src="assets/collections/${i}" alt="${n}" loading="lazy"><h3>${n} →</h3></a>`).join("");
+ const step=()=>cg.firstElementChild.offsetWidth+10,upd=()=>{cn.textContent=(Math.min(L.length,Math.round(cg.scrollLeft/step())+1))+" / "+L.length};
+ cg.onscroll=upd;cp.onclick=()=>cg.scrollBy({left:-step(),behavior:"smooth"});cx.onclick=()=>cg.scrollBy({left:step(),behavior:"smooth"});upd();
+});
+</script>
+<script src="js/footer.js"></script></body></html>

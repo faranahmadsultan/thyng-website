@@ -1,0 +1,28 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Product - THYNG</title><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon.png"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&family=Quattrocento:wght@400;700&family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head><body>
+<section class="feat" id="feat"></section><div class="pagehead"><h2>You may also like</h2></div><section class="grid" id="rel"></section>
+<script src="js/main.js"></script>
+<script>
+PRODUCTS_READY.then(()=>{
+ const id=new URLSearchParams(location.search).get("id"),all=PRODUCTS.concat(BUNDLES),p=all.find(x=>x.id===id)||all[0];let q=1,cur=0;
+ document.title=p.name+" - THYNG";
+ const imgs=[img(p)].concat(p.images||[]);
+ const noun={cap:"cap",tee:"tee",shades:"shades",bundle:"set"}[p.type]||"piece";
+ const msg=`Hi THYNG! I'd like to get a customized ${noun}. I liked "${p.name}". Here's my idea:\n\n${location.href}`;
+ const wa="https://wa.me/923324915444?text="+encodeURIComponent(msg);
+ feat.innerHTML=`<div class="pm"><button class="zoom" id="zm" aria-label="View full screen">⌕</button><img id="mainImg" class="clickimg" src="${imgs[0]}" alt="${p.name}">
+ ${imgs.length>1?`<div class="thumbs">${imgs.map((s,i)=>`<button class="th${i?"":" on"}" data-i="${i}" aria-label="Image ${i+1}"><img src="${s}" alt=""></button>`).join("")}</div>`:""}</div>
+ <div><small>THYNG</small><h1>${p.name}</h1>
+ <div class="price">${priceHTML(p)}${p.soldOut?'<span class="badge">Sold out</span>':p.compare?'<span class="badge">Sale</span>':''}</div><div class="ship"><u>Shipping</u> calculated at checkout.</div>
+ <small>Quantity</small><br><div class="qty"><button id="m">−</button><span id="q">1</span><button id="pl">+</button></div>
+ <div class="stack"><button class="btn ghost block" id="add" ${p.soldOut?"disabled":""}>${p.soldOut?"Sold out":"Add to cart"}</button><button class="btn block" id="buy" ${p.soldOut?"disabled":""}>Buy it now</button></div>
+ <div class="moreRow" style="justify-content:flex-start;margin-top:26px"><button class="sharebtn" id="shr">${SHARE_SVG} Share</button></div>
+ <div class="cust"><p>Want it customized?</p><a class="btn ghost custbtn" href="${wa}" target="_blank" rel="noopener">${WA_ICON} Text us on 03324915444</a></div></div>`;
+ const qe=document.getElementById("q");m.onclick=()=>{q=Math.max(1,q-1);qe.textContent=q};pl.onclick=()=>{q++;qe.textContent=q};
+ add.onclick=()=>{Cart.add(p.id,q);add.textContent="Added ✓"};buy.onclick=()=>{Cart.add(p.id,q);location.href="cart.html"};
+ shr.onclick=()=>shareProduct(p,shr);
+ mainImg.onclick=zm.onclick=()=>openLightbox(imgs,cur);
+ document.querySelectorAll(".th").forEach(b=>b.onclick=()=>{cur=+b.dataset.i;mainImg.src=imgs[cur];document.querySelectorAll(".th").forEach(x=>x.classList.toggle("on",x===b))});
+ rel.innerHTML=PRODUCTS.filter(x=>x.type===p.type&&x.id!==p.id).slice(0,4).map(cardHTML).join("");
+});
+</script>
+<script src="js/footer.js"></script></body></html>

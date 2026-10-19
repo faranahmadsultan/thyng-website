@@ -1,0 +1,13 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Your cart - THYNG</title><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon.png"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&family=Quattrocento:wght@400;700&family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head><body>
+<div class="wrap" id="c"></div>
+<script src="js/main.js"></script>
+<script>
+PRODUCTS_READY.then(()=>{
+ function draw(){const items=Cart.get().map(i=>({...PRODUCTS.concat(BUNDLES).find(p=>p.id===i.id),q:i.q})),c=document.getElementById("c");
+  if(!items.length){c.innerHTML='<div class="cart-empty"><h1>Your cart is empty</h1><a class="btn" href="shop.html">Continue shopping</a></div>';return}
+  const tot=items.reduce((s,i)=>s+i.price*i.q,0);
+  c.innerHTML='<div class="pagehead" style="padding-left:0"><h1>Your cart</h1></div>'+items.map(i=>`<div class="ci"><img src="${img(i)}" alt=""><div>${i.name}<br><small>${fmt(i.price)} × ${i.q}</small><br><a data-r="${i.id}">Remove</a></div><div>${fmt(i.price*i.q)}</div></div>`).join("")+
+  `<div class="total">Estimated total ${fmt(tot)}<div class="ship">Shipping calculated at checkout.</div><a class="btn" href="https://wa.me/923324915444?text=${encodeURIComponent("Hi THYNG, I want to order: "+items.map(i=>i.q+"x "+i.name).join(", "))}">Order on WhatsApp</a></div>`;
+  c.querySelectorAll("[data-r]").forEach(a=>a.onclick=()=>{Cart.remove(a.dataset.r);draw()});}
+ draw();});</script>
+<script src="js/footer.js"></script></body></html>

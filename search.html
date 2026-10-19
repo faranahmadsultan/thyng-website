@@ -1,0 +1,21 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Search - THYNG</title><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon.png"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&family=Quattrocento:wght@400;700&family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head><body>
+<section class="srch"><h1>Search results</h1>
+<form class="sbox" action="search.html"><div class="sfield"><label for="sq">Search</label><input id="sq" name="q" autocomplete="off"></div>
+<button type="button" class="x" id="sx" aria-label="Clear">×</button><button class="go" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></button><div class="pdbox" id="pdb" hidden></div></form>
+<div id="res" hidden><div class="stools"><div><label>Filter: <select id="av"><option value="">Availability</option><option value="in">In stock</option><option value="out">Out of stock</option></select></label> <label><select id="pr"><option value="">Price</option><option value="0-1200">Under 1,200</option><option value="1200-2000">1,200 - 2,000</option><option value="2000-9999">2,000+</option></select></label></div>
+<div><label>Sort by: <select id="so"><option value="">Relevance</option><option value="az">Alphabetically, A-Z</option><option value="lo">Price, low to high</option><option value="hi">Price, high to low</option></select></label> <span id="cnt"></span></div></div>
+<div class="grid" id="g"></div></div></section>
+<script src="js/main.js"></script>
+<script>
+const q=(new URLSearchParams(location.search).get("q")||"").trim();sq.value=q;attachPredictive(sq,pdb);
+sx.onclick=()=>{sq.value="";pdb.hidden=true;sq.focus()};
+PRODUCTS_READY.then(()=>{if(!q)return;res.hidden=false;const base=searchProducts(q);
+ function draw(){let l=base.slice();
+  if(av.value)l=l.filter(p=>av.value==="out"?p.soldOut:!p.soldOut);
+  if(pr.value){const[a,b]=pr.value.split("-").map(Number);l=l.filter(p=>p.price>=a&&p.price<b)}
+  if(so.value==="az")l.sort((a,b)=>a.name.localeCompare(b.name));if(so.value==="lo")l.sort((a,b)=>a.price-b.price);if(so.value==="hi")l.sort((a,b)=>b.price-a.price);
+  cnt.textContent="  "+l.length+" result"+(l.length==1?"":"s");
+  g.innerHTML=l.map(cardHTML).join("")||"<p style='grid-column:1/-1;padding:30px 0;color:var(--mute)'>No results found for “"+esc(q)+"”. Check the spelling or try a different word.</p>";}
+ [av,pr,so].forEach(e=>e.onchange=draw);draw();});
+</script>
+<script src="js/footer.js"></script></body></html>

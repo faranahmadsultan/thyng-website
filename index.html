@@ -1,0 +1,27 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>THYNG - Hand Embroidered Streetwear</title><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon.png"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&family=Quattrocento:wght@400;700&family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head><body>
+
+<div class="ss" data-ss="none"><div class="ss-track">
+<a class="ss-slide hero" href="shop.html?c=caps"><picture><source media="(max-width:749px)" srcset="assets/hero-mobile.jpg"><img src="assets/hero.jpg" alt="Hand embroidered ARACHNID cap"></picture><span class="hero-btn">Shop NOW</span></a>
+<a class="ss-slide hero" href="shop.html?c=tees"><img src="assets/slide-suture.jpg" alt="SUTURE 0.1 limited edition"><span class="hero-btn t">Shop NOW</span></a>
+</div></div>
+<section class="tagline"><small>REFUSE TO BLEND IN</small><p>Hand-embroidered TEES &amp; CUSTOM caps crafted. Premium quality, made to last. Now with trendy, sunglasses built for style &amp; durability at a price that FITS!</p><a class="btn ghost" href="shop.html">SHOP Exclusive</a></section>
+<section class="feat" id="feat"></section>
+<section class="grid" id="tees"></section>
+<section class="big"><img class="big-img" src="assets/feature-tee.jpg" alt="WANTED drop shoulder tee"><h2><a href="shop.html?c=tees">TEES</a><br><a href="shop.html?c=caps">CAPS</a><br><a href="shop.html?c=shades">SHADES</a></h2><p>Can Be <b>Customized</b></p></section>
+<div class="ss" data-ss="dots"><div class="ss-track">
+<div class="ss-slide band"><a class="bl" href="shop.html?c=caps"><img src="assets/band-caps.jpg" alt="Hand embroidered caps"></a><h2>Hand Embroidered Caps</h2><a class="btn" href="shop.html?c=caps">SHOP ALL</a></div>
+<div class="ss-slide band"><a class="bl" href="shop.html?c=shades"><img src="assets/band-shades.jpg" alt="Trendy shades"></a><h2>Trendy Shades</h2><a class="btn" href="shop.html?c=shades">SHOP ALL</a></div>
+</div></div>
+<script src="js/main.js"></script>
+<script>
+PRODUCTS_READY.then(()=>{
+ const p=PRODUCTS.find(x=>x.id==="wanted");let q=1;const f=document.getElementById("feat");
+ f.innerHTML=`<div class="pm"><span class="zoom">⌕</span><img src="${img(p)}" alt="${p.name}"></div><div><small>THYNG</small><h1>${p.name}</h1>
+ <div class="price">${priceHTML(p)}<span class="badge">Sale</span></div><div class="ship"><u>Shipping</u> calculated at checkout.</div>
+ <small>Quantity</small><br><div class="qty"><button id="m">−</button><span id="q">1</span><button id="pl">+</button></div>
+ <div class="stack"><button class="btn ghost block" id="add">Add to cart</button><button class="btn block" id="buy">Buy it now</button></div><div class="moreRow"><button class="sharebtn" id="shr">${SHARE_SVG} Share</button><a href="product.html?id=${p.id}">View full details →</a></div></div>`;
+ const qe=document.getElementById("q");m.onclick=()=>{q=Math.max(1,q-1);qe.textContent=q};pl.onclick=()=>{q++;qe.textContent=q};
+ add.onclick=()=>{Cart.add(p.id,q);add.textContent="Added ✓"};buy.onclick=()=>{Cart.add(p.id,q);location.href="cart.html"};shr.onclick=()=>shareProduct(p,shr);
+ tees.innerHTML=["stormd","corrode","iconic","inkd"].map(i=>cardHTML(PRODUCTS.find(x=>x.id===i))).join("");
+});</script>
+<script src="js/footer.js"></script></body></html>
