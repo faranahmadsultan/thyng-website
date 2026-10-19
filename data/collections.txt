@@ -1,0 +1,12 @@
+# THYNG COLLECTIONS  -  edit this file and the Collections page updates.
+# One collection per line:   slug | Title shown on the card | image file (inside assets/collections/)
+# slug = short unique word, no spaces. Order here = order on the page.
+# To put products in a collection, add the slug in the 8th column of data/products.txt (several slugs separated by commas).
+
+drop1|Drop 1 — The Originals|drop1.jpg
+marked|Marked Collection - TEES|marked.jpg
+shadesx|Shades X : pierced edition|shadesx.jpg
+eidluxe|Eid Luxe - SHADES 3|eidluxe.jpg
+shades1|Shades 1|shades1.jpg
+drop15|Drop 1.5|drop15.jpg
+shades2|Shades 2|shades2.jpg

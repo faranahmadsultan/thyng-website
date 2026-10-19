@@ -1,0 +1,35 @@
+# THYNG PRODUCTS  -  edit this file and the whole site updates.
+# One product per line, fields separated by the | symbol:
+#   id | name | type | price | old price | status | image file | collections (optional) | extra images (optional)
+#
+# id         = short unique word, no spaces (used in the link)
+# type       = cap, tee, shades or bundle   (bundles show on the Bundles page)
+# price      = number only, no commas  (e.g. 1199)
+# old price  = crossed-out price, leave empty if not on sale
+# status     = leave empty if available, or write: soldout
+# image file = file name inside assets/products/  (e.g. anchor.jpg)
+# collections = optional, slugs from data/collections.txt separated by commas (e.g. drop1,shades1)
+# extra images = more photos of the product (file names inside assets/products/, separated by commas, e.g. suture-2.jpg,suture-3.jpg). Leave the collections column empty with || if you only want extra images.
+# Lines starting with # are ignored. Order here = order on the shop page.
+
+anchor|Anchor - hand embroidered cap|cap|1099|1399||anchor.jpg
+stormd|Black Drop Shoulder Tee - STORM'D|tee|1800|1999||stormd.jpg
+inkd|Black Drop-Shoulder Tee - INK'D|tee|2499||soldout|inkd.jpg
+corrode|Drop Shoulder Tee - CORRODE|tee|1800|2000||corrode.jpg
+iconic|Drop shoulder Tee - ICONIC|tee|2200|2699|soldout|iconic.jpg
+suture|Drop Shoulder Tee - SUTURE 0.1|tee|1999|2299||suture.jpg||suture-2.jpg
+famo|FAMO Cap (hand embroidered)|cap|1199|1499||famo.jpg
+floral|Floral Cap (hand embroidered)|cap|1199|||floral.jpg
+bmw|Hand Embroidered - BMW blue|cap|1199|1499||bmw.jpg
+num10|Hand Embroidered - Number 10 (World Cup edition)|cap|1099|1499||num10.jpg
+num7|Hand embroidered - Number 7 ( World Cup Edition )|cap|1099|1499||num7.jpg
+arachnid|Hand Embroidered Cap - ARACHNID|cap|1199|1499||arachnid.jpg
+dodge|Hand Embroidered Cap - DODGE|cap|1199|||dodge.jpg
+mended|Hand Embroidered Cap - MENDED|cap|1099|1499||mended.jpg
+mercedes|Hand Embroidered Cap - Mercedes|cap|1099|1399||mercedes.jpg
+thyng|Hand Embroidered Cap - THYNG|cap|1199|||thyng.jpg
+wanted|Hand Embroidered Cap - WANTED ( pre order )|cap|1599|1999||wanted.jpg
+jaguar|JAGUAR Shades (unisex)|shades|799|999|soldout|jaguar.jpg
+retro|OG Retro Cap (hand embroidered)|cap|1199|1399||retro.jpg
+plug|PLUG Shades (unisex)|shades|699||soldout|plug.jpg
+signature|Signature Fit|bundle|3499||soldout|signature.jpg
